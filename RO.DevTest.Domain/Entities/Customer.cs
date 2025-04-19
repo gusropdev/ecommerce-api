@@ -1,9 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace RO.DevTest.Domain.Entities;
 
 public class Customer
 {
-    public Guid Id { get; set; }
-
+    [Key]
     public string UserId { get; set; } = null!;
     public User User { get; set; } = null!;
     
