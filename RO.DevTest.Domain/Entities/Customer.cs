@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RO.DevTest.Domain.Entities;
 
-public class Customer
+public class Customer 
 {
     [Key]
     public string UserId { get; set; } = null!;
