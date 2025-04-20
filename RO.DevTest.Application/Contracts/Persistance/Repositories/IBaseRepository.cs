@@ -5,7 +5,7 @@ namespace RO.DevTest.Application.Contracts.Persistance.Repositories;
 public interface IBaseRepository<T> where T : class {
 
     /// <summary>
-    /// Creates a new entity in the database
+    /// Creates a new entity in the database    
     /// </summary>
     /// <param name="entity"> The entity to be create </param>
     /// <param name="cancellationToken"> Cancellation token </param>
