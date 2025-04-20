@@ -15,7 +15,9 @@ public static class PersistenceDependencyInjector {
     /// The <see cref="IServiceCollection"/> with dependencies injected
     /// </returns>
     public static IServiceCollection InjectPersistenceDependencies(this IServiceCollection services) {
-        services.AddDbContext<DefaultContext>(options => options.UseInMemoryDatabase("rota"));
+        const string connectionString = "Server=localhost;port=5432;Database=rodevtest;User Id=postgres;Password=27634406gG**;";
+        
+        services.AddDbContext<DefaultContext>(options => options.UseNpgsql(connectionString));
 
         return services;
     }
