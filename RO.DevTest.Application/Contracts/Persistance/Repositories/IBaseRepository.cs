@@ -21,7 +21,7 @@ public interface IBaseRepository<T> where T : class {
     /// </param>
     /// <returns>
     /// The <typeparamref name="T"/> entity, if found. Null otherwise. </returns>
-    T? Get(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
+    Task<T?> GetAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
 
     /// <summary>
     /// Updates an entity entry on the database

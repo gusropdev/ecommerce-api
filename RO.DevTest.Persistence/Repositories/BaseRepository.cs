@@ -5,9 +5,8 @@ using System.Linq.Expressions;
 namespace RO.DevTest.Persistence.Repositories;
 
 public class BaseRepository<T>(DefaultContext defaultContext) : IBaseRepository<T> where T : class {
-    private readonly DefaultContext _defaultContext = defaultContext;
 
-    protected DefaultContext Context { get => _defaultContext; }
+    protected DefaultContext Context { get => defaultContext; }
 
     public async Task<T> CreateAsync(T entity, CancellationToken cancellationToken = default) {
         await Context.Set<T>().AddAsync(entity, cancellationToken);
@@ -25,8 +24,8 @@ public class BaseRepository<T>(DefaultContext defaultContext) : IBaseRepository<
         await Context.SaveChangesAsync();
     }
 
-    public T? Get(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
-    => GetQueryWithIncludes(predicate, includes).FirstOrDefault();
+    public Task<T?> GetAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
+    => GetQueryWithIncludes(predicate, includes).FirstOrDefaultAsync();
 
     /// <summary>
     /// Generates a filtered <see cref="IQueryable{T}"/>, based on its
