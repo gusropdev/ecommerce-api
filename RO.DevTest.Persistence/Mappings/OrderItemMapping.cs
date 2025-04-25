@@ -11,6 +11,9 @@ public class OrderItemMapping : IEntityTypeConfiguration<OrderItem>
         builder.ToTable("OrderItems");
         
         builder.HasKey(oi => oi.Id);
+
+        builder.Property(oi => oi.CreatedAt)
+            .IsRequired();
         
         builder.Property(oi => oi.Quantity)
             .IsRequired();

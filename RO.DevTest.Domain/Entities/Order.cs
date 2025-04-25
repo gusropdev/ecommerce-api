@@ -1,13 +1,12 @@
+using RO.DevTest.Domain.Abstract;
+
 namespace RO.DevTest.Domain.Entities;
 
-public class Order
+public class Order : BaseEntity
 {
-    public Guid Id { get; set; }
-
-    public string CustomerId { get; set; } = null!;
+    public Guid CustomerId { get; set; }
     public Customer Customer { get; set; } = null!;
     
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public decimal TotalValue { get; set; }
     
     public List<OrderItem> Items { get; set; } = [];

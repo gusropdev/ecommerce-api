@@ -1,11 +1,10 @@
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using RO.DevTest.Domain.Abstract;
 
 namespace RO.DevTest.Domain.Entities;
 
-public class OrderItem
+public class OrderItem : BaseEntity
 {
-    public Guid Id { get; set; }
-    
     public Guid OrderId { get; set; }
     public Order Order { get; set; } = null!;
 
