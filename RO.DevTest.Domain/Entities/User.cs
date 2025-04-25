@@ -11,5 +11,8 @@ public class User : IdentityUser {
     /// </summary>
     public string Name { get; set; } = string.Empty;
 
+    public Guid? CustomerId { get; set; }
+    public Customer? Customer { get; set; }
+
     public User() : base() { }
 }

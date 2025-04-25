@@ -20,7 +20,7 @@ public class CustomerMapping : IEntityTypeConfiguration<Customer>
         
         builder
             .HasOne(c => c.User)
-            .WithOne()
+            .WithOne(u => u.Customer)
             .HasForeignKey<Customer>(c => c.UserId)
             .IsRequired();
 
