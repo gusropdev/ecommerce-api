@@ -4,11 +4,8 @@ namespace RO.DevTest.Application.Features.Customer.Commands.UpdateCustomerComman
 
 public class UpdateCustomerCommandRequest : IRequest<UpdateCustomerResult>
 {
-    public string UserId { get; set; }
-
-    public string Name { get; set; }
-    public string UserName { get; set; }
-    public string Email { get; set; }
-    
+    public Guid CustomerId { get; set; }
+    public string Address { get; set; } = string.Empty;
+    public DateTime? DateOfBirth { get; set; }
     
 }

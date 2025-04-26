@@ -32,7 +32,7 @@ public class CreateCustomerCommandHandler(
         var customer = new Domain.Entities.Customer
         {
             UserId = user.Id,
-            User = user
+            User = user,
         };
 
         await customerRepository.CreateAsync(customer, cancellationToken);

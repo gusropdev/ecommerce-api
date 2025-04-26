@@ -6,17 +6,10 @@ public class UpdateCustomerCommandValidator : AbstractValidator<UpdateCustomerCo
 {
     public UpdateCustomerCommandValidator()
     {
-        RuleFor(x => x.UserId)
-            .NotEmpty().WithMessage("O identificador do cliente é obrigatório.");
-
-        RuleFor(x => x.Email)
-            .NotEmpty().WithMessage("O novo e-mail é obrigatório.")
-            .EmailAddress().WithMessage("O novo e-mail deve ser válido.");
-
-        RuleFor(x => x.Name)
-            .NotEmpty().WithMessage("O novo nome é obrigatório.");
-
-        RuleFor(x => x.UserName)
-            .NotEmpty().WithMessage("O novo nome de usuário é obrigatório.");
+        RuleFor(x => x.CustomerId)
+            .NotEmpty()
+            .NotNull()
+            .WithMessage("O id do cliente é obrigatório.");
+        
     }
 }
