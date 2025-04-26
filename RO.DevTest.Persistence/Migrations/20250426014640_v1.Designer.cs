@@ -12,7 +12,7 @@ using RO.DevTest.Persistence;
 namespace RO.DevTest.Persistence.Migrations
 {
     [DbContext(typeof(DefaultContext))]
-    [Migration("20250420141357_v1")]
+    [Migration("20250426014640_v1")]
     partial class v1
     {
         /// <inheritdoc />
@@ -160,13 +160,32 @@ namespace RO.DevTest.Persistence.Migrations
 
             modelBuilder.Entity("RO.DevTest.Domain.Entities.Customer", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
-                    b.Property<DateTime>("RegisteredAt")
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(144)
+                        .HasColumnType("character varying(144)");
+
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("UserId");
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Customers", (string)null);
                 });
@@ -180,9 +199,11 @@ namespace RO.DevTest.Persistence.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("CustomerId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("TotalValue")
                         .HasPrecision(10, 2)
@@ -200,6 +221,12 @@ namespace RO.DevTest.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uuid");
@@ -229,6 +256,9 @@ namespace RO.DevTest.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -236,6 +266,9 @@ namespace RO.DevTest.Persistence.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -376,7 +409,7 @@ namespace RO.DevTest.Persistence.Migrations
             modelBuilder.Entity("RO.DevTest.Domain.Entities.Customer", b =>
                 {
                     b.HasOne("RO.DevTest.Domain.Entities.User", "User")
-                        .WithOne()
+                        .WithOne("Customer")
                         .HasForeignKey("RO.DevTest.Domain.Entities.Customer", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -427,6 +460,11 @@ namespace RO.DevTest.Persistence.Migrations
             modelBuilder.Entity("RO.DevTest.Domain.Entities.Product", b =>
                 {
                     b.Navigation("OrderItems");
+                });
+
+            modelBuilder.Entity("RO.DevTest.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Customer");
                 });
 #pragma warning restore 612, 618
         }

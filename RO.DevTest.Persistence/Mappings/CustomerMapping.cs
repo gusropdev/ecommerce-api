@@ -9,14 +9,14 @@ public class CustomerMapping : IEntityTypeConfiguration<Customer>
     public void Configure(EntityTypeBuilder<Customer> builder)
     {
         builder.ToTable("Customers");
-        builder.HasKey(c => c.UserId);
+        builder.HasKey(c => c.Id);
 
-        builder.Property(c => c.RegisteredAt)
-            .IsRequired();
-
+        builder.Property(c => c.Address)
+            .HasMaxLength(144);
+        
         builder
             .HasOne(c => c.User)
-            .WithOne()
+            .WithOne(u => u.Customer)
             .HasForeignKey<Customer>(c => c.UserId)
             .IsRequired();
 
