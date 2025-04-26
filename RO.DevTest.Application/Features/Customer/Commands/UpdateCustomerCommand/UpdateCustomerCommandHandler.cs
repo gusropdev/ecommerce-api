@@ -6,22 +6,19 @@ using RO.DevTest.Domain.Exception;
 
 namespace RO.DevTest.Application.Features.Customer.Commands.UpdateCustomerCommand;
 
-public class UpdateCustomerCommandHandler (ICustomerRepository customerRepository, IUserRepository userRepository) : IRequestHandler<UpdateCustomerCommandRequest, UpdateCustomerResult>
+public class UpdateCustomerCommandHandler (ICustomerRepository customerRepository) : IRequestHandler<UpdateCustomerCommandRequest, UpdateCustomerResult>
 {
     public async Task<UpdateCustomerResult> Handle(UpdateCustomerCommandRequest request, CancellationToken cancellationToken)
     {
-        var customer =  await customerRepository.GetAsync(c => c.UserId == request.UserId, c => c.User);
+        var customer =  await customerRepository.GetAsync(c => c.Id == request.CustomerId);
         if (customer == null)
             throw new BadRequestException("Cliente não encontrado");
         
-        var user = customer.User;
+        customer.Address = request.Address;
+        customer.DateOfBirth = request.DateOfBirth;
         
-        user.Name = request.Name;
-        user.Email = request.Email;
-        user.UserName = request.UserName;
+        customerRepository.Update(customer);
         
-        userRepository.Update(user);
-        
-        return new UpdateCustomerResult(customer.UserId, user.Name, user.Email, user.UserName);
+        return new UpdateCustomerResult(customer.Id, customer.Address, customer.DateOfBirth);
     }
 }

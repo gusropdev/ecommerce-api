@@ -34,4 +34,12 @@ public interface IBaseRepository<T> where T : class {
     /// </summary>
     /// <param name="entity"> The entity to be deleted </param>
     void Delete(T entity);
+
+    Task<List<T>> GetAllAsync(Expression<Func<T, bool>> predicate,
+        Func<IQueryable<T>, IOrderedQueryable<T>> orderBy,
+        int? skip = null,
+        int? take = null,
+        params Expression<Func<T, object>>[] includes);
+
+    Task<int> CountAsync(Expression<Func<T, bool>> predicate);
 }

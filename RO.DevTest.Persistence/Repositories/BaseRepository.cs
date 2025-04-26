@@ -75,4 +75,35 @@ public class BaseRepository<T>(DefaultContext defaultContext) : IBaseRepository<
         return baseQuery;
     }
 
+    //Adicionando GetAllAsync para conseguir fazer paginação, filtragem e ordenação
+    public async Task<List<T>> GetAllAsync(
+        Expression<Func<T, bool>> predicate,
+        Func<IQueryable<T>, IOrderedQueryable<T>> orderBy,
+        int? skip = null,
+        int? take = null,
+        params Expression<Func<T, object>>[] includes)
+    {
+        var query = GetQueryWithIncludes(predicate, includes);
+        
+        if(orderBy != null)
+            query = orderBy(query);
+        
+        if(skip.HasValue)
+            query = query.Skip(skip.Value);
+        
+        if(take.HasValue)
+            query = query.Take(take.Value);
+        
+        return await query.ToListAsync();
+    }
+    
+    public async Task<int> CountAsync(Expression<Func<T, bool>> predicate)
+    {
+        IQueryable<T> baseQuery = Context.Set<T>();
+        
+        if (predicate != null)
+            baseQuery = baseQuery.Where(predicate);
+        
+        return await baseQuery.CountAsync();
+    }
 }
