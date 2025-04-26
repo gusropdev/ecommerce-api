@@ -172,11 +172,6 @@ namespace RO.DevTest.Persistence.Migrations
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(144)
-                        .HasColumnType("character varying(144)");
-
                     b.Property<DateTime>("ModifiedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -411,7 +406,7 @@ namespace RO.DevTest.Persistence.Migrations
             modelBuilder.Entity("RO.DevTest.Domain.Entities.Customer", b =>
                 {
                     b.HasOne("RO.DevTest.Domain.Entities.User", "User")
-                        .WithOne()
+                        .WithOne("Customer")
                         .HasForeignKey("RO.DevTest.Domain.Entities.Customer", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -462,6 +457,11 @@ namespace RO.DevTest.Persistence.Migrations
             modelBuilder.Entity("RO.DevTest.Domain.Entities.Product", b =>
                 {
                     b.Navigation("OrderItems");
+                });
+
+            modelBuilder.Entity("RO.DevTest.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Customer");
                 });
 #pragma warning restore 612, 618
         }
