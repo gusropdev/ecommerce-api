@@ -16,9 +16,9 @@ public class DeleteCustomerCommandHandler (ICustomerRepository customerRepositor
         
         var user = customer.User;
         
+        await customerRepository.DeleteAsync(customer);
         await identityAbstractor.DeleteUser(customer.User);
-        customerRepository.Delete(customer);
         
-        return new DeleteCustomerResult(customer.Id, user.Name, user.UserName!,user.Email!);
+        return new DeleteCustomerResult("Cliente apagado com sucesso.", customer.Id, user.Name, user.UserName!,user.Email!);
     }
 }

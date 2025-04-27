@@ -37,6 +37,6 @@ public class CreateCustomerCommandHandler(
 
         await customerRepository.CreateAsync(customer, cancellationToken);
 
-        return new CreateCustomerResult(customer);
+        return new CreateCustomerResult("Cliente criado com sucesso.", customer);
     }
 }

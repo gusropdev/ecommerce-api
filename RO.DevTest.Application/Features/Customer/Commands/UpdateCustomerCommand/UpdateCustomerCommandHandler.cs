@@ -17,8 +17,8 @@ public class UpdateCustomerCommandHandler (ICustomerRepository customerRepositor
         customer.Address = request.Address;
         customer.DateOfBirth = request.DateOfBirth;
         
-        customerRepository.Update(customer);
+        await customerRepository.UpdateAsync(customer);
         
-        return new UpdateCustomerResult(customer.Id, customer.Address, customer.DateOfBirth);
+        return new UpdateCustomerResult("Cliente atualizado com sucesso.", customer.Id, customer.Address, customer.DateOfBirth);
     }
 }
