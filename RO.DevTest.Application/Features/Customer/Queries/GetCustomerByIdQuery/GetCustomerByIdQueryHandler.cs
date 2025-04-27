@@ -5,10 +5,10 @@ using RO.DevTest.Domain.Exception;
 
 namespace RO.DevTest.Application.Features.Customer.Queries.GetCustomerByIdQuery;
 
-public class GetCostumerByIdQueryHandler (ICustomerRepository customerRepository) 
-    : IRequestHandler<GetCustomerByIdQueryRequest, GetCostumerByIdResult>
+public class GetCustomerByIdQueryHandler (ICustomerRepository customerRepository) 
+    : IRequestHandler<GetCustomerByIdQueryRequest, GetCustomerByIdResult>
 {
-    public async Task<GetCostumerByIdResult> Handle(GetCustomerByIdQueryRequest request, CancellationToken cancellationToken)
+    public async Task<GetCustomerByIdResult> Handle(GetCustomerByIdQueryRequest request, CancellationToken cancellationToken)
     {
         var customer = await customerRepository.GetAsync(c => c.Id == request.CustomerId, c => c.User);
         
@@ -17,6 +17,6 @@ public class GetCostumerByIdQueryHandler (ICustomerRepository customerRepository
 
         var user = customer.User;
         
-        return new GetCostumerByIdResult(customer.Id, user.Name, user.UserName!, user.Email!, customer.Orders);
+        return new GetCustomerByIdResult(customer.Id, user.Name, user.UserName!, user.Email!, customer.Orders);
     }
 }

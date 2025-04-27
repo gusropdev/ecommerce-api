@@ -10,7 +10,7 @@ namespace RO.DevTest.WebApi.Controllers;
 
 [Route ("api/[controller]")]
 [ApiController]
-public class CustomerController (IMediator mediator) : ControllerBase
+public class CustomersController (IMediator mediator) : ControllerBase
 {
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateCustomerCommandRequest request)

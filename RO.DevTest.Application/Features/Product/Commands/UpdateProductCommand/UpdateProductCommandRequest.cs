@@ -1,13 +1,13 @@
-using RO.DevTest.Domain.Abstract;
+using MediatR;
 
-namespace RO.DevTest.Domain.Entities;
+namespace RO.DevTest.Application.Features.Product.Commands.UpdateProductCommand;
 
-public class Product : BaseEntity
+public class UpdateProductCommandRequest : IRequest<UpdateProductResult>
 {
+    public Guid ProductId { get; set; }
     public string Name { get; set; } = null!;
     public string Description { get; set; } = string.Empty;
     public decimal Price { get; set; }
     public int StockQuantity { get; set; }
     public bool IsActive { get; set; }
-    public List<OrderItem> OrderItems { get; set; } = [];
 }

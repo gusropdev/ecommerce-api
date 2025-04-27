@@ -6,7 +6,7 @@ public class UpdateCustomerCommandValidator : AbstractValidator<UpdateCustomerCo
 {
     public UpdateCustomerCommandValidator()
     {
-        RuleFor(x => x.CustomerId)
+        RuleFor(request => request.CustomerId)
             .NotEmpty()
             .NotNull()
             .WithMessage("O id do cliente é obrigatório.");
