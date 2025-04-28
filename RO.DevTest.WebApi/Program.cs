@@ -2,8 +2,10 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RO.DevTest.Application;
+using RO.DevTest.Domain.Exception;
 using RO.DevTest.Infrastructure.IoC;
 using RO.DevTest.Persistence.IoC;
+using RO.DevTest.WebApi.Middleware;
 
 namespace RO.DevTest.WebApi;
 
@@ -59,7 +61,7 @@ public class Program {
                 ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
                 ValidAudience = builder.Configuration["JwtSettings:Audience"],
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                    builder.Configuration["JwtSettings:SecretKey"] ?? throw new Exception("JWT SecretKey is missing.")
+                    builder.Configuration["JwtSettings:SecretKey"] ?? throw new BadRequestException("JWT SecretKey is missing.")
                 ))
             };
         });
@@ -85,6 +87,8 @@ public class Program {
         }
 
         app.UseHttpsRedirection();
+        app.UseMiddleware<ExceptionMiddleware>();
+
 
         app.UseAuthentication();
         app.UseAuthorization();

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Configuration;
 using RO.DevTest.Application.Contracts.Infrastructure;
+using RO.DevTest.Domain.Exception;
 
 namespace RO.DevTest.Application.Features.Auth.Commands.LoginCommand;
 public class LoginCommandHandler (IIdentityAbstractor identityAbstractor, ITokenService tokenService)
@@ -11,11 +12,11 @@ public class LoginCommandHandler (IIdentityAbstractor identityAbstractor, IToken
     {
         var user = await identityAbstractor.FindUserByEmailAsync(request.Email);
         if (user == null)
-            throw new Exception("Credenciais inválidas");
+            throw new BadRequestException("Credenciais inválidas");
 
         var isPasswordValid = await identityAbstractor.CheckPasswordAsync(user, request.Password);
         if (!isPasswordValid)
-            throw new Exception("Credenciais inválidas");
+            throw new BadRequestException("Credenciais inválidas");
 
         var roles = await identityAbstractor.GetRolesAsync(user);
 

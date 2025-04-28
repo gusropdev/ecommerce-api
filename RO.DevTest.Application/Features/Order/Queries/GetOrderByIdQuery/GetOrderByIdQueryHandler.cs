@@ -1,5 +1,6 @@
 using MediatR;
 using RO.DevTest.Application.Contracts.Persistance.Repositories;
+using RO.DevTest.Domain.Exception;
 
 namespace RO.DevTest.Application.Features.Order.Queries.GetOrderByIdQuery;
 
@@ -10,7 +11,7 @@ public class GetOrderByIdQueryHandler (IOrderRepository orderRepository)
     {
         var order = await orderRepository.GetAsync(o => o.Id == request.OrderId, o => o.Items);
         if (order == null)
-            throw new Exception("Pedido não encontrado.");
+            throw new BadRequestException("Pedido não encontrado.");
 
         var orderItems = order.Items.Select(item => new OrderItemResult
         {

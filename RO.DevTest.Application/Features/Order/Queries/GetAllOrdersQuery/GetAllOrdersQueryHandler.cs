@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using MediatR;
 using RO.DevTest.Application.Contracts.Persistance.Repositories;
+using RO.DevTest.Domain.Exception;
 
 namespace RO.DevTest.Application.Features.Order.Queries.GetAllOrdersQuery;
 
@@ -11,7 +12,7 @@ public class GetAllOrdersQueryHandler (IOrderRepository orderRepository, ICustom
     {
         var customer = await customerRepository.GetAsync(c => c.Id == request.CustomerId);
         if (customer == null)
-            throw new Exception("Cliente não encontrado");
+            throw new BadRequestException("Cliente não encontrado");
         
         var filter = BuildFilter(request.CustomerId);
         var orderBy = BuildOrderBy(request.OrderBy, request.Ascending);
