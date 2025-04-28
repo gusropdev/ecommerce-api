@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RO.DevTest.Application.Contracts.Infrastructure;
 using RO.DevTest.Domain.Entities;
 using RO.DevTest.Infrastructure.Abstractions;
+using RO.DevTest.Infrastructure.Services;
 using RO.DevTest.Persistence;
 
 namespace RO.DevTest.Infrastructure.IoC;
@@ -25,6 +26,7 @@ public static class InfrastructureDependecyInjector {
             .AddDefaultTokenProviders();
 
         services.AddScoped<IIdentityAbstractor, IdentityAbstractor>();
+        services.AddScoped<ITokenService, TokenService>();
 
         return services;
     }

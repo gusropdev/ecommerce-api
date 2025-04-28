@@ -98,4 +98,8 @@ public interface IIdentityAbstractor {
     /// A <see cref="Task{IdentityResult}"/>
     /// </returns>
     Task<IdentityResult> DeleteUser(User user);
+    
+    //Métodos adicionais para usar no LoginHandler
+    Task<bool> CheckPasswordAsync(User user, string password);
+    Task<IList<string>> GetRolesAsync(User user);
 }

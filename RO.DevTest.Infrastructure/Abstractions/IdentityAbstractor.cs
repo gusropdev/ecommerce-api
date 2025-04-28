@@ -54,4 +54,10 @@ public class IdentityAbstractor : IIdentityAbstractor {
 
         return await _userManager.AddToRoleAsync(user, role.ToString());
     }
+    public async Task<bool> CheckPasswordAsync(User user, string password)
+        => await _userManager.CheckPasswordAsync(user, password);
+
+    public async Task<IList<string>> GetRolesAsync(User user)
+        => await _userManager.GetRolesAsync(user);
+        
 }
