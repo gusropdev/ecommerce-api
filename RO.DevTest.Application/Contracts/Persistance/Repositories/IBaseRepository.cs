@@ -5,7 +5,7 @@ namespace RO.DevTest.Application.Contracts.Persistance.Repositories;
 public interface IBaseRepository<T> where T : class {
 
     /// <summary>
-    /// Creates a new entity in the database
+    /// Creates a new entity in the database    
     /// </summary>
     /// <param name="entity"> The entity to be create </param>
     /// <param name="cancellationToken"> Cancellation token </param>
@@ -21,17 +21,25 @@ public interface IBaseRepository<T> where T : class {
     /// </param>
     /// <returns>
     /// The <typeparamref name="T"/> entity, if found. Null otherwise. </returns>
-    T? Get(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
+    Task<T?> GetAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
 
     /// <summary>
     /// Updates an entity entry on the database
     /// </summary>
     /// <param name="entity"> The entity to be added </param>
-    void Update(T entity);
+    Task UpdateAsync(T entity);
 
     /// <summary>
     /// Deletes one entry from the database
     /// </summary>
     /// <param name="entity"> The entity to be deleted </param>
-    void Delete(T entity);
+    Task DeleteAsync(T entity);
+
+    Task<List<T>> GetAllAsync(Expression<Func<T, bool>> predicate,
+        Func<IQueryable<T>, IOrderedQueryable<T>> orderBy,
+        int? skip = null,
+        int? take = null,
+        params Expression<Func<T, object>>[] includes);
+
+    Task<int> CountAsync(Expression<Func<T, bool>> predicate);
 }

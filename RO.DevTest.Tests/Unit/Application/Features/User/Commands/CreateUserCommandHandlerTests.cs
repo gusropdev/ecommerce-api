@@ -18,7 +18,7 @@ public class CreateUserCommandHandlerTests {
     public void Handle_WhenEmailIsNullOrEmpty_ShouldRaiseABadRequestExcpetion() {
         // Arrange
         string email = string.Empty, password = Guid.NewGuid().ToString();
-        CreateUserCommand command = new() {
+        CreateUserCommandRequest commandRequest = new() {
             Email = email,
             UserName = "user_test",
             Password = password,
@@ -27,7 +27,7 @@ public class CreateUserCommandHandlerTests {
         };
 
         // Act
-        Func<Task> action = async () => await _sut.Handle(command, new CancellationToken());
+        Func<Task> action = async () => await _sut.Handle(commandRequest, new CancellationToken());
 
         // Assert
         action.Should().ThrowAsync<BadRequestException>();
@@ -39,7 +39,7 @@ public class CreateUserCommandHandlerTests {
         string email = "mytestemail@someprovider.com"
             , password = Guid.NewGuid().ToString()
             , passwordConfirmation = Guid.NewGuid().ToString();
-        CreateUserCommand command = new() {
+        CreateUserCommandRequest commandRequest = new() {
             Email = email,
             UserName = "user_test",
             Password = password,
@@ -48,7 +48,7 @@ public class CreateUserCommandHandlerTests {
         };
 
         // Act
-        Func<Task> action = async () => await _sut.Handle(command, new CancellationToken());
+        Func<Task> action = async () => await _sut.Handle(commandRequest, new CancellationToken());
 
         // Assert
         action.Should().ThrowAsync<BadRequestException>();
