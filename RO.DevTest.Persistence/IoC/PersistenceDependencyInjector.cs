@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RO.DevTest.Application.Contracts.Infrastructure;
 using RO.DevTest.Application.Contracts.Persistance.Repositories;
 using RO.DevTest.Persistence.Repositories;
 

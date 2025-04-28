@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RO.DevTest.Application.Features.Order.Commands.CreateOrderCommand;
 using RO.DevTest.Application.Features.Order.Commands.DeleteOrderCommand;
@@ -9,8 +10,10 @@ namespace RO.DevTest.WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize(Roles = "Customer, Admin")]
 public class OrdersController (IMediator mediator) : ControllerBase
 {
+    
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateOrderCommandRequest request)
     {
