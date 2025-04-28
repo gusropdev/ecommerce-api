@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RO.DevTest.Application.Features.Customer.Commands.CreateCustomerCommand;
 using RO.DevTest.Application.Features.Customer.Commands.DeleteCustomerCommand;
@@ -10,6 +11,7 @@ namespace RO.DevTest.WebApi.Controllers;
 
 [Route ("api/[controller]")]
 [ApiController]
+[Authorize(Roles = "Admin")]
 public class CustomersController (IMediator mediator) : ControllerBase
 {
     [HttpPost]
